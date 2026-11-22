@@ -8,6 +8,7 @@ import time
 
 
 
+
 def Calculate_File_hash(path):
     with open(path, "rb") as f:
         digest = hashlib.file_digest(f, "sha256")
