@@ -3,6 +3,8 @@ import hashlib
 from pathlib import Path
 from colorama import Fore, Back, Style, init
 import logging
+from rich.console import Console
+import time
 
 
 
@@ -82,23 +84,36 @@ def option_b(b_path):
 
 
 if __name__ == "__main__":
+    init(autoreset=True)
 
-    print("What would you like to do?")
-    print("A) Collect new Baseline? \nB) Begin monitoring files with saved Baseline")
+    print(
+        Fore.YELLOW
+        + r"""  / __\  __  / __  ___
+ / _\   / / / /  \/   \
+/ /    / / / /  / /\/\ \
+\/    /_/ /_/  /\/    \/"""
+    )
 
-    userin = input("Please enter A or B: ").strip().lower()
+    print(Fore.LIGHTMAGENTA_EX + "\nFile Monitoring Daemon\nBuilt by Darian Dsouza\n")
+    print(Fore.CYAN + "-" * 42)
+    print(
+        Fore.WHITE
+        + "[A] Collect new Baseline\n"
+        + "[B] Begin monitoring files with saved Baseline\n"
+        + Fore.LIGHTBLACK_EX
+        + "Press 'e' to exit when running\n"
+    )
+
+    userin = input(Fore.YELLOW + ">> " + Style.RESET_ALL).strip().lower()
 
     path = Path.cwd()
     b_path = path / "fim_data" / "baseline.txt"
 
-
-
     if userin == "a":
         option_a(b_path)
+        console = Console()
+        with console.status("[bold cyan]Sorting through files & creating baseline...[/bold cyan]"):
+            time.sleep(2)
+        option_b(b_path)
     elif userin == "b":
         option_b(b_path)
-
-        
-
-
-
